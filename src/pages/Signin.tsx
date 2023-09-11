@@ -29,7 +29,7 @@ export const Signin = () => {
     if (email && password)
       signInWithEmailAndPassword(auth, email, password)
         .then(() => {
-          navigate("/home");
+          navigate("/project");
         })
         .catch(() => {
           alert("サインインに失敗しました");
@@ -37,7 +37,7 @@ export const Signin = () => {
   };
 
   return user ? (
-    <Navigate to={"/home"} />
+    <Navigate to={"/project"} />
   ) : (
     <>
       <Container mt={5}>

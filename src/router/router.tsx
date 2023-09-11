@@ -1,29 +1,35 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
 import { Signin } from "../pages/Signin";
 import { Signup } from "../pages/Signup";
-import { Home } from "../pages/Home";
+import { Project } from "../pages/Project";
 import { Protected } from "./Protected";
+import { Layout } from "../components/Layout";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navigate to="/home" />,
-  },
-  {
-    path: "/signin",
-    element: <Signin />,
-  },
-  {
-    path: "/signup",
-    element: <Signup />,
-  },
-  {
-    path: "/home",
-    element: (
-      <Protected>
-        <Home />
-      </Protected>
-    ),
+    element: <Layout />,
+    children: [
+      { index: true, element: <Navigate to="/project" /> },
+      {
+        path: "project",
+        element: <Protected />,
+        children: [
+          {
+            index: true,
+            element: <Project />,
+          },
+        ],
+      },
+      {
+        path: "signin",
+        element: <Signin />,
+      },
+      {
+        path: "signup",
+        element: <Signup />,
+      },
+    ],
   },
 ]);
 

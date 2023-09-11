@@ -41,7 +41,7 @@ export const Signup = () => {
   };
 
   return user ? (
-    <Navigate to={"/home"} />
+    <Navigate to={"/project"} />
   ) : (
     <>
       <Container mt={5}>

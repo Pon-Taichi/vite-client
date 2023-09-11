@@ -1,8 +1,7 @@
-import { ReactNode } from "react";
 import { useAuthContext } from "../hooks/AuthContextHooks";
-import { Navigate } from "react-router";
+import { Navigate, Outlet } from "react-router";
 
-export const Protected = ({ children }: { children: ReactNode }) => {
+export const Protected = () => {
   const { user } = useAuthContext();
-  return user ? children : <Navigate to="/signin" />;
+  return user ? <Outlet /> : <Navigate to="/signin" />;
 };
