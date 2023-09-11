@@ -1,9 +1,10 @@
 import { Button } from "@chakra-ui/button";
-import { Box, Flex, HStack, Heading, Spacer } from "@chakra-ui/layout";
+import { Box, Flex, HStack, Heading, Link, Spacer } from "@chakra-ui/layout";
 import { Outlet, useNavigate } from "react-router";
 import { useAuthContext } from "../hooks/AuthContextHooks";
 import { signOut } from "@firebase/auth";
 import { auth } from "../firebase";
+import { Link as Router } from "react-router-dom";
 
 export const Layout = () => {
   return (
@@ -36,9 +37,11 @@ const Header = () => {
     <Box as="nav" bg="bg-surface" p={4} boxShadow="sm">
       <Flex>
         <HStack px={5}>
-          <Heading as={"h2"} size={"lg"}>
-            Project Board
-          </Heading>
+          <Link as={Router} to={"/project"} _hover={{ textDecoration: "none" }}>
+            <Heading as={"h2"} size={"lg"}>
+              Project Board
+            </Heading>
+          </Link>
         </HStack>
         <Spacer />
         {user ? (
