@@ -9,6 +9,7 @@ export const Project = () => {
       <Heading size={"lg"}>ホーム</Heading>
       <Box my={3}>
         <Text>ログイン中のユーザー: {user?.email}</Text>
+        <Text>ログインできました</Text>
       </Box>
     </Container>
   );

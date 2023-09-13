@@ -1,7 +1,7 @@
 import { Box, Container, Text, VStack } from "@chakra-ui/layout";
 import { Spinner } from "@chakra-ui/spinner";
 
-export const Loading = ({ isLoading, message }: LoadingProps) => {
+export const LoadingWithOverlay = ({ isLoading, message }: LoadingProps) => {
   return (
     <>
       <Box
