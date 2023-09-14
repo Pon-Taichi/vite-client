@@ -23,30 +23,52 @@ export const Signup = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isEmailInvalid, setIsEmailInvalid] = useState(false);
   const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
+  const [isConfirmPasswordInvalid, setIsConfirmPasswordInvalid] =
+    useState(false);
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const confirmPasswordRef = useRef<HTMLInputElement>(null);
+
+  const resetPassword = () => {
+    if (passwordRef.current) {
+      passwordRef.current.value = "";
+    }
+    if (confirmPasswordRef.current) {
+      confirmPasswordRef.current.value = "";
+    }
+  };
 
   const onSignupClick = async () => {
     setIsEmailInvalid(false);
     setIsPasswordInvalid(false);
+    setIsConfirmPasswordInvalid(false);
 
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
+    const confirmPassword = passwordRef.current?.value;
 
     const validateEmail = schema.email.safeParse(email);
     const validatePassword = schema.password.safeParse(password);
 
     if (!email || !validateEmail.success) {
       setIsEmailInvalid(true);
+      resetPassword();
       return;
     }
     if (!password || !validatePassword.success) {
       setIsPasswordInvalid(true);
+      resetPassword();
+      return;
+    }
+    if (!confirmPassword || password !== confirmPassword) {
+      setIsConfirmPasswordInvalid(true);
+      resetPassword();
       return;
     }
 
     setIsLoading(true);
+
     setIsEmailInvalid(false);
     setIsPasswordInvalid(false);
 
@@ -56,6 +78,7 @@ export const Signup = () => {
       })
       .catch(() => {
         alert("登録に失敗しました");
+        resetPassword();
       });
     setIsLoading(false);
   };
@@ -75,7 +98,7 @@ export const Signup = () => {
         <Box my={3}>
           <form>
             <FormControl isRequired isInvalid={isEmailInvalid} my={3} w={"sm"}>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>メールアドレス</FormLabel>
               <Input type="email" ref={emailRef} />
               <FormErrorMessage>不正なメールアドレスです</FormErrorMessage>
             </FormControl>
@@ -85,11 +108,21 @@ export const Signup = () => {
               my={3}
               w={"sm"}
             >
-              <FormLabel>Password</FormLabel>
+              <FormLabel>パスワード</FormLabel>
               <Input type="password" ref={passwordRef} />
               <FormErrorMessage>
                 パスワードは8文字以上32文字以下で設定してください
               </FormErrorMessage>
+            </FormControl>
+            <FormControl
+              isRequired
+              isInvalid={isConfirmPasswordInvalid}
+              my={3}
+              w={"sm"}
+            >
+              <FormLabel>パスワード再確認</FormLabel>
+              <Input type="password" ref={confirmPasswordRef} />
+              <FormErrorMessage>パスワードが一致しません</FormErrorMessage>
             </FormControl>
             <Button
               spinner={<Spinner />}
