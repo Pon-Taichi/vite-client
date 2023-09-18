@@ -1,9 +1,12 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
 import { Signin } from "../pages/Signin";
 import { Signup } from "../pages/Signup";
-import { Project } from "../pages/Project";
+import { ProjectList } from "../pages/project/ProjectList";
 import { Protected } from "./Protected";
 import { Layout } from "../components/Layout";
+import { ProjectNew } from "../pages/project/ProjectNew";
+import { ProjectDashboard } from "../pages/project/ProjectDashboard";
+import { Container } from "@chakra-ui/react";
 
 const router = createBrowserRouter([
   {
@@ -17,9 +20,18 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <Project />,
+            element: <ProjectList />,
+          },
+          {
+            path: "new",
+            element: <ProjectNew />,
           },
         ],
+      },
+      {
+        path: ":project",
+        element: <ProjectDashboard />,
+        errorElement: <Container>Not Found</Container>,
       },
       {
         path: "signin",

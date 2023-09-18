@@ -1,5 +1,13 @@
 import { Button } from "@chakra-ui/button";
-import { Box, Flex, HStack, Heading, Link, Spacer } from "@chakra-ui/layout";
+import {
+  Box,
+  Flex,
+  HStack,
+  Heading,
+  Link,
+  Spacer,
+  Text,
+} from "@chakra-ui/layout";
 import { Outlet, useNavigate } from "react-router";
 import { useAuthContext } from "../hooks/AuthContextHooks";
 import { signOut } from "@firebase/auth";
@@ -46,6 +54,7 @@ const Header = () => {
         <Spacer />
         {user ? (
           <HStack>
+            <Text>{user.email}</Text>
             <Button variant="ghost" onClick={onSignoutClick}>
               Sign out
             </Button>

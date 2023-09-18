@@ -90,11 +90,6 @@ export const Signup = () => {
       <Container mt={5}>
         <Heading size={"lg"}>サインアップ</Heading>
 
-        {/* エラーの時に表示 */}
-        {/* <div className="col-6" th:if="${errMsg != null}">
-          <p className="alert alert-danger" th:text="${errMsg}"></p>
-        </div> */}
-
         <Box my={3}>
           <form>
             <FormControl isRequired isInvalid={isEmailInvalid} my={3} w={"sm"}>
