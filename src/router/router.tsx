@@ -7,6 +7,7 @@ import { Layout } from "../components/Layout";
 import { ProjectNew } from "../pages/project/ProjectNew";
 import { ProjectDashboard } from "../pages/project/ProjectDashboard";
 import { Container } from "@chakra-ui/react";
+import { getProject } from "../services/project";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,9 @@ const router = createBrowserRouter([
       {
         path: ":project",
         element: <ProjectDashboard />,
+        loader: async ({ params }) => {
+          return await getProject(params.project);
+        },
         errorElement: <Container>Not Found</Container>,
       },
       {

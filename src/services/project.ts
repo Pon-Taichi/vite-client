@@ -1,17 +1,20 @@
 import { Project } from "../types/project";
-import { get, post } from "../utils/api";
+import { api } from "../utils/api";
 
 export const getProjects = async () => {
-  return await get<Project[]>("/projects");
+  const response = await api.get<Project[]>("/projects");
+  return response.data;
 };
 
 export const getProject = async (name: string | undefined) => {
   if (!name) {
     throw new Error();
   }
-  return await get<Project>(`/projects/${name}`);
+  const response = await api.get<Project>(`/projects/${name}`);
+  return response.data;
 };
 
 export const createProject = async (project: Project) => {
-  return await post<Project, Project>("/projects", project);
+  const response = await api.post<Project>("/projects", project);
+  return response;
 };
