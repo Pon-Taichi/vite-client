@@ -4,14 +4,22 @@ import { auth } from "../firebase";
 import { AuthContext } from "./AuthContext";
 import { Spinner } from "@chakra-ui/spinner";
 import { Container, Text, VStack } from "@chakra-ui/layout";
+import { api } from "../utils/api";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [currnetUser, setCurrentUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
+      const token = await user?.getIdToken();
+      if (token) {
+        api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      } else {
+        delete api.defaults.headers.common["Authorization"];
+      }
+
       setIsLoading(false);
     });
   }, []);
