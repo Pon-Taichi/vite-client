@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
       const token = await user?.getIdToken();
       if (token) {
@@ -19,9 +19,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       } else {
         delete api.defaults.headers.common["Authorization"];
       }
-
+      console.log(user);
       setIsLoading(false);
     });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   return (

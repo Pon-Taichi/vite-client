@@ -51,13 +51,13 @@ export const Signin = () => {
     setIsEmailInvalid(false);
     setIsPasswordInvalid(false);
 
-    await signInWithEmailAndPassword(auth, email!, password!)
-      .then(() => {
-        navigate("/project");
-      })
-      .catch(() => {
-        alert("サインインに失敗しました");
-      });
+    try {
+      await signInWithEmailAndPassword(auth, email!, password!);
+      navigate("/project");
+    } catch (error) {
+      alert("サインインに失敗しました");
+    }
+
     setIsLoading(false);
   };
 

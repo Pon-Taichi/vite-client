@@ -1,7 +1,7 @@
 import { useAuthContext } from "../hooks/AuthContextHooks";
 import { Navigate, Outlet } from "react-router";
 
-export const Protected = () => {
+export const NotAuthorized = () => {
   const { user } = useAuthContext();
-  return user ? <Outlet /> : <Navigate to="/signin" />;
+  return user ? <Navigate to="/project" /> : <Outlet />;
 };
